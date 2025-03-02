@@ -17,7 +17,6 @@ type HTTPClient struct {
 }
 
 func (c *HTTPClient) RegisterHandlers(pluginHandler handlers.PluginHandler) error {
-
 	c.router.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "pong",
