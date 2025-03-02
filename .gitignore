@@ -17,3 +17,6 @@ tmp
 
 # Test coverage files
 *.out
+
+# Editor directories and files
+.vscode/*
