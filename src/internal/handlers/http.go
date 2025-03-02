@@ -21,9 +21,8 @@ func (h *PluginHandler) PatchStatus(ctx *gin.Context) {
 }
 
 func (h *PluginHandler) GetPlugins(ctx *gin.Context) {
-
 	plugins, err := h.svc.GetPlugins()
-	utils.LogEvent(err)
+	utils.LogEvent(err, ctx)
 
 	ctx.JSON(http.StatusOK, domain.HTTPResponse[[]domain.Plugin]{
 		Severity: domain.SEVERITY_SUCCESS,
