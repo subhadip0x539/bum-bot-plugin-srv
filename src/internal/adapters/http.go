@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/subhadip0x539/bum-bot-plugin-srv/src/internal/handlers"
+	"github.com/subhadip0x539/bum-bot-plugin-srv/src/internal/middlewares"
 )
 
 type HTTPClient struct {
@@ -39,6 +40,8 @@ func (c *HTTPClient) Run() error {
 
 func NewHTTPClient(host string, port int, trustedProxies []string) (*HTTPClient, error) {
 	router := gin.Default()
+
+	router.Use(middlewares.HTTPErrorHandler())
 
 	if err := router.SetTrustedProxies(trustedProxies); err != nil {
 		return nil, err

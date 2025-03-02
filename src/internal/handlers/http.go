@@ -7,7 +7,6 @@ import (
 
 	"github.com/subhadip0x539/bum-bot-plugin-srv/src/internal/core/domain"
 	"github.com/subhadip0x539/bum-bot-plugin-srv/src/internal/core/ports"
-	"github.com/subhadip0x539/bum-bot-plugin-srv/src/internal/utils"
 )
 
 type PluginHandler struct {
@@ -22,7 +21,11 @@ func (h *PluginHandler) PatchStatus(ctx *gin.Context) {
 
 func (h *PluginHandler) GetPlugins(ctx *gin.Context) {
 	plugins, err := h.svc.GetPlugins()
-	utils.LogEvent(err, ctx)
+	if err.Details != nil {
+		ctx.Error(err)
+		ctx.Abort()
+		return
+	}
 
 	ctx.JSON(http.StatusOK, domain.HTTPResponse[[]domain.Plugin]{
 		Severity: domain.SEVERITY_SUCCESS,
